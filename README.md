@@ -1,5 +1,5 @@
 # СТЕК
-`React, Redux toolkit, StyledComponents`
+`React, Redux toolkit, Typescript, StyledComponents`
 
 ## ЗАПУСК ТЕСТОВОГО
 `yarn start`
