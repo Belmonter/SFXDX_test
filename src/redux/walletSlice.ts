@@ -1,24 +1,24 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface IWalletData {
-  walletAddress: string
+	walletAddress: string;
 }
 
 const initialState: IWalletData = {
-  walletAddress: '',
+	walletAddress: '',
 };
 
-type WalletAddress = string
+type WalletAddress = string;
 
 export const walletSlice = createSlice({
-  name: 'wallet',
-  initialState,
-  reducers: {
-    setWalletAddress(state, action: PayloadAction<WalletAddress>) {
-      state.walletAddress = action.payload
-    }
-  }
-})
+	name: 'wallet',
+	initialState,
+	reducers: {
+		setWalletAddress(state, action: PayloadAction<WalletAddress>) {
+			state.walletAddress = action.payload;
+		},
+	},
+});
 
 export const walletReducer = walletSlice.reducer;
-export const {setWalletAddress} = walletSlice.actions;
+export const { setWalletAddress } = walletSlice.actions;

@@ -1,12 +1,9 @@
 import React from 'react';
-import StyledPlaceOrder from './PlaceOrder.styled'
+
+import StyledPlaceOrder from './PlaceOrder.styled';
 
 function PlaceOrder() {
-  return (
-    <StyledPlaceOrder>
-
-    </StyledPlaceOrder>
-  );
+	return <StyledPlaceOrder></StyledPlaceOrder>;
 }
 
 export default PlaceOrder;

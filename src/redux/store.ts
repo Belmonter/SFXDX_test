@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {walletReducer} from "./walletSlice";
+
+import { walletReducer } from './walletSlice';
 
 export const store = configureStore({
-  reducer: {
-    wallet: walletReducer
-  },
+	reducer: {
+		wallet: walletReducer,
+	},
 });
 
 export type AppDispatch = typeof store.dispatch;

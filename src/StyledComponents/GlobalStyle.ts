@@ -1,5 +1,6 @@
-import {createGlobalStyle} from "styled-components";
-import {rem, ThemeProps} from "./Theme";
+import { createGlobalStyle } from 'styled-components';
+
+import { ThemeProps, rem } from './Theme';
 
 export const GlobalStyle = createGlobalStyle<ThemeProps>`
   @font-face {
@@ -44,8 +45,8 @@ export const GlobalStyle = createGlobalStyle<ThemeProps>`
     color: #092326;
     background-color: #F0F5F5;
     line-height: 1;
-    font-family: ${({theme}) => theme.fontFamily};
-    font-size: ${({theme}) => theme.fontSize};
+    font-family: ${({ theme }) => theme.fontFamily};
+    font-size: ${({ theme }) => theme.fontSize};
     //text-rendering: optimizeLegibility;
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
@@ -57,7 +58,7 @@ export const GlobalStyle = createGlobalStyle<ThemeProps>`
   input,
   button,
   textarea {
-    font-family: ${({theme}) => theme.fontFamily};
+    font-family: ${({ theme }) => theme.fontFamily};
     font-size: inherit;
   }
 
@@ -97,9 +98,9 @@ export const GlobalStyle = createGlobalStyle<ThemeProps>`
     font-weight: inherit;
     font-size: inherit;
   }
-  
+
   hr {
     height: 1px;
     background-color: #CDD2DD;
   }
-`
+`;

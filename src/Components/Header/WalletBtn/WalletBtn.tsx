@@ -1,67 +1,33 @@
-import React, {useEffect} from 'react';
-import {WalletBtnStyled} from "./WalletBtn.styled";
-import {useAppDispatch, useAppSelector} from "../../../redux/hooks";
-import {setWalletAddress} from "../../../redux/walletSlice";
-import ConnectedWalletBtn from "../ConnectedWalletBtn/ConnectedWalletBtn";
+import React, { useEffect, useState } from 'react';
+
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import Spinner from '../../Spinner/Spinner';
+import ConnectedWalletBtn from '../ConnectedWalletBtn/ConnectedWalletBtn';
+
+import { AddWalletListener, ConnectToWallet, GetCurrentWallet } from './WalletBtn.functions';
+import { WalletBtnStyled } from './WalletBtn.styled';
 
 function WalletBtn() {
-  const dispatch = useAppDispatch();
-  const wallet = useAppSelector(state => state.wallet)
+	const [loading, setLoading] = useState<boolean>(false);
+	const wallet = useAppSelector((state) => state.wallet);
+	const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    getCurrentWallet();
-    addWalletListener();
-  })
+	useEffect(() => {
+		GetCurrentWallet(dispatch, setLoading);
+		AddWalletListener(dispatch, setLoading);
+	}, []);
 
-  const connectToWallet = async () => {
-    if (typeof window != "undefined" && typeof window.ethereum != 'undefined') {
-      try {
-        const accounts = await window.ethereum.request({method: "eth_requestAccounts"});
-        if (accounts && Array.isArray(accounts)) {
-          dispatch(setWalletAddress(accounts[0]))
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    } else {
-      alert('Please install Metamask extension')
-    }
-  }
-
-  const getCurrentWallet = async () => {
-    if (typeof window != "undefined" && typeof window.ethereum != 'undefined') {
-      try {
-        const accounts = await window.ethereum.request({method: "eth_accounts"});
-        if (accounts && Array.isArray(accounts) && accounts.length > 0) {
-          dispatch(setWalletAddress(accounts[0]))
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    }
-  }
-
-  const addWalletListener = async () => {
-    if (typeof window != "undefined" && typeof window.ethereum != 'undefined') {
-      window.ethereum.on('accountsChanged', (accs) => {
-        if (accs && Array.isArray(accs)) {
-          dispatch(setWalletAddress(accs[0]))
-        }
-      })
-    } else {
-      dispatch(setWalletAddress(''))
-    }
-  }
-
-  return (
-    <>
-      {wallet.walletAddress && wallet.walletAddress.length > 0 ?
-        <ConnectedWalletBtn/>
-        :
-        <WalletBtnStyled onClick={() => connectToWallet()}>Connect Wallet</WalletBtnStyled>
-      }
-    </>
-  );
+	return (
+		<>
+			{wallet.walletAddress && wallet.walletAddress.length > 0 ? (
+				<ConnectedWalletBtn />
+			) : (
+				<WalletBtnStyled onClick={() => ConnectToWallet(dispatch, setLoading)} disabled={loading}>
+					{loading ? <Spinner /> : 'Connect Wallet'}
+				</WalletBtnStyled>
+			)}
+		</>
+	);
 }
 
 export default WalletBtn;
